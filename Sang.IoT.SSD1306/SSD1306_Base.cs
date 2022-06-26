@@ -66,12 +66,6 @@ namespace Sang.SSD1306
 
         /// <summary>
         /// 页数
-        /// 
-        /// 要想将数组数据显示到屏幕，就需要将数据存入，要用到了SSD1306的RAM
-        /// GDDRAM是一个位映射的静态RAM，保持要显示的位模式。
-        /// RAM大小为128x64位，RAM分为8页，从0页到7页，用于单色128x64点矩阵显示
-        /// https://blog.csdn.net/longgyue/article/details/121885956
-        /// 
         /// </summary>
         private int _pages;
         private byte[] _buffer;
