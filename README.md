@@ -29,7 +29,10 @@ Replace the contents of Program.cs with the following code:
 ```csharp
 using (var oled = new SSD1306_128_64(1)) {
     oled.Begin();
-    oled.Clear();
+    // set data to oled
+    byte[] c = new byte[128*64]{...};
+    oled.SetBuffer(c);
+    //oled.Clear();
     oled.Display();
 }
 ```

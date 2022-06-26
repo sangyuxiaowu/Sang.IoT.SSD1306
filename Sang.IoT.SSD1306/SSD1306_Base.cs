@@ -46,12 +46,12 @@ namespace Sang.SSD1306
         /// <summary>
         /// 屏幕宽度
         /// </summary>
-        private int width;
+        public int width { get; private set; }
 
         /// <summary>
         /// 屏幕高度
         /// </summary>
-        private int height;
+        public int height { get; private set; }
 
         /// <summary>
         /// I2C总线
@@ -136,6 +136,14 @@ namespace Sang.SSD1306
             this._vccstate = vccstate;
             this.Initialize();
             this.Command(SSD1306_DISPLAYON);
+        }
+
+        /// <summary>
+        /// 设置显示器buffer
+        /// </summary>
+        public void SetBuffer(byte[] c) {
+            if (c.Length != _buffer.Length) return;
+            _buffer = c;
         }
 
         /// <summary>
