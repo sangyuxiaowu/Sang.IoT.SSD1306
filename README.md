@@ -27,12 +27,29 @@ dotnet add package Sang.IoT.SSD1306
 Replace the contents of Program.cs with the following code:
 
 ```csharp
+using Sang.IoT.SSD1306;
+
 using (var oled = new SSD1306_128_64(1)) {
     oled.Begin();
     // set data to oled
     byte[] c = new byte[128*64]{...};
     oled.SetBuffer(c);
-    //oled.Clear();
     oled.Display();
 }
 ```
+
+## Display Image
+
+```csharp
+using Sang.IoT.SSD1306;
+
+using (var oled = new SSD1306_128_64(1)) {
+    oled.Begin();
+    oled.Image("assets/test.png");
+    oled.Display();
+}
+```
+
+## Clear
+
+Use `oled.Clear();`.

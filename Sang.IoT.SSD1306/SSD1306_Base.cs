@@ -67,7 +67,11 @@ namespace Sang.IoT.SSD1306
         /// <summary>
         /// 页数
         /// </summary>
-        private int _pages;
+        public int pages { get; private set; }
+
+        /// <summary>
+        /// 待写入的buffer
+        /// </summary>
         private byte[] _buffer;
 
         /// <summary>
@@ -86,20 +90,12 @@ namespace Sang.IoT.SSD1306
         {
             this.width = width;
             this.height = height;
-            this._pages = (int)Math.Floor(height / 8.0);
-            this._buffer = new byte[width * this._pages];
+            this.pages = (int)Math.Floor(height / 8.0);
+            this._buffer = new byte[width * this.pages];
 
             this._bus = I2cBus.Create(i2c_bus);
             this._i2c = _bus.CreateDevice(i2c_address);
 
-        }
-
-        /// <summary>
-        /// 返回页数信息
-        /// </summary>
-        /// <returns></returns>
-        public int Pages() {
-            return this._pages;
         }
 
 
@@ -131,7 +127,7 @@ namespace Sang.IoT.SSD1306
             byte[] data = new byte[c.Length + 1];
             data[0] = 0x40;
             Array.Copy(c, 0, data, 1, c.Length);
-            _i2c.Write(c);
+            _i2c.Write(data);
         }
 
 
@@ -164,7 +160,7 @@ namespace Sang.IoT.SSD1306
             Command((byte)(this.width - 1));  // 列结束地址
             Command(SSD1306_PAGEADDR);
             Command(0);              // 开始页 (0 = reset)
-            Command((byte)(this._pages - 1));  // 结束页
+            Command((byte)(this.pages - 1));  // 结束页
             for (int i = 0; i < this._buffer.Length; i += 16)
             {
                 Data(this._buffer[i..(i + 16)]);
@@ -176,7 +172,7 @@ namespace Sang.IoT.SSD1306
         /// </summary>
         public void Clear()
         {
-            this._buffer = new byte[width * this._pages];
+            this._buffer = new byte[width * this.pages];
         }
 
 
