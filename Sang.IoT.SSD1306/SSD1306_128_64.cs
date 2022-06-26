@@ -1,6 +1,6 @@
-﻿namespace Sang.SSD1306
+﻿namespace Sang.IoT.SSD1306
 {
-    internal class SSD1306_128_64 : SSD1306_Base
+    public class SSD1306_128_64 : SSD1306_Base
     {
         /// <summary>
         /// SSD1306_128_64

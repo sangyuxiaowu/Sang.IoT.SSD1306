@@ -1,6 +1,6 @@
 ﻿using System.Device.I2c;
 
-namespace Sang.SSD1306
+namespace Sang.IoT.SSD1306
 {
     public class SSD1306_Base : IDisposable
     {
