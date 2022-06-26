@@ -94,6 +94,14 @@ namespace Sang.SSD1306
 
         }
 
+        /// <summary>
+        /// 返回页数信息
+        /// </summary>
+        /// <returns></returns>
+        public int Pages() {
+            return this._pages;
+        }
+
 
         /// <summary>
         /// 针对不同分辨率设备的初始化
