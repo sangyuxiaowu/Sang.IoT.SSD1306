@@ -50,6 +50,37 @@ using (var oled = new SSD1306_128_64(1)) {
 }
 ```
 
+## Display Text
+
+```csharp
+using Sang.IoT.SSD1306;
+using SkiaSharp;
+
+using (var oled = new SSD1306_128_64(1)) {
+
+    oled.Begin();
+    oled.Clear();
+
+    using(var bitmap = new SKBitmap(128, 64, true)){
+        SKCanvas canvas = new SKCanvas(bitmap);
+        SKPaint paint = new SKPaint() { 
+            Color = new SKColor(255, 255, 255),
+            StrokeWidth = 1, //画笔宽度
+            Typeface = SKTypeface.FromFile("/home/sangsq/i2c_led/SourceHanSansCN-Normal.ttf"),
+            TextSize = 13,  //字体大小
+            Style = SKPaintStyle.Fill,
+        };
+        canvas.DrawText("公众号：sangxiao99 ", 0, 13, paint);
+        paint.TextSize = 30;
+        canvas.DrawText("桑榆肖物 ", 0, 50, paint);
+        oled.Image(bitmap.Encode(SKEncodedImageFormat.Png, 100).ToArray());
+    }
+
+    oled.Display();
+}
+```
+
+
 ## Clear
 
 Use `oled.Clear();`.
