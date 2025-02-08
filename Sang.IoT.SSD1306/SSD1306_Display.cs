@@ -34,28 +34,31 @@ namespace Sang.IoT.SSD1306
         {
             if (bitmap.Width < startX + regionWidth || bitmap.Height < startY + regionHeight) return;
 
-            byte[] data = new byte[regionWidth * ((regionHeight + 7) / 8)];
+            byte[] data = new byte[this.width * this.pages];
             int index = 0;
-            for (int page = 0; page < (regionHeight + 7) / 8; page++)
+            for (int page = 0; page < this.pages; page++)
             {
-                for (int i = 0; i < regionWidth; i++)
+                for (int i = 0; i < this.width; i++)
                 {
-                    data[index++] = GetByteForColumn(bitmap, i + startX, startY + page * 8);
+                    data[index++] = GetByteForColumn(bitmap, i , page);
                 }
             }
             this.SetBuffer(data, startX, startY, regionWidth, regionHeight);
         }
 
-        private byte GetByteForColumn(SKBitmap bitmap, int x, int startY)
+        private byte GetByteForColumn(SKBitmap bitmap, int x, int page)
         {
             int bits = 0;
             for (int bit = 0; bit < 8; bit++)
             {
                 bits <<= 1;
-                int pixelY = startY + 7 - bit;
-                if (pixelY < bitmap.Height && bitmap.GetPixel(x, pixelY).Alpha == 255)
+                if (bitmap.GetPixel(x, page * 8 + 7 - bit).ToString() == "#ff000000")
                 {
-                    bits |= 1;
+                    bits = bits | 0;
+                }
+                else
+                {
+                    bits = bits | 1;
                 }
             }
             return (byte)bits;
