@@ -66,13 +66,14 @@ using (var oled = new SSD1306_128_64(1)) {
         SKPaint paint = new SKPaint() { 
             Color = new SKColor(255, 255, 255),
             StrokeWidth = 1, //画笔宽度
-            Typeface = SKTypeface.FromFile("/home/sangsq/i2c_led/SourceHanSansCN-Normal.ttf"),
-            TextSize = 13,  //字体大小
             Style = SKPaintStyle.Fill,
         };
-        canvas.DrawText("公众号：sangxiao99 ", 0, 13, paint);
-        paint.TextSize = 30;
-        canvas.DrawText("桑榆肖物 ", 0, 50, paint);
+
+        SKFont font = new SKFont(SKTypeface.FromFile("/home/sangsq/i2c_led/SourceHanSansCN-Normal.ttf"),13);
+
+        canvas.DrawText("公众号：sangxiao99 ", 0, 13, font, paint);
+        font.Size = 30;
+        canvas.DrawText("桑榆肖物 ", 0, 50, font, paint);
         oled.Image(bitmap.Encode(SKEncodedImageFormat.Png, 100).ToArray());
     }
 

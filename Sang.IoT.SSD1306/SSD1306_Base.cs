@@ -92,7 +92,6 @@ namespace Sang.IoT.SSD1306
             this.height = height;
             this.pages = (int)Math.Floor(height / 8.0);
             this._buffer = new byte[width * this.pages];
-
             this._bus = I2cBus.Create(i2c_bus);
             this._i2c = _bus.CreateDevice(i2c_address);
 
