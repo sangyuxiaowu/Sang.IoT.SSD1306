@@ -66,13 +66,14 @@ using (var oled = new SSD1306_128_64(1)) {
         SKPaint paint = new SKPaint() { 
             Color = new SKColor(255, 255, 255),
             StrokeWidth = 1, //画笔宽度
-            Typeface = SKTypeface.FromFile("/home/sangsq/i2c_led/SourceHanSansCN-Normal.ttf"),
-            TextSize = 13,  //字体大小
             Style = SKPaintStyle.Fill,
         };
-        canvas.DrawText("公众号：sangxiao99 ", 0, 13, paint);
-        paint.TextSize = 30;
-        canvas.DrawText("桑榆肖物 ", 0, 50, paint);
+
+        SKFont font = new SKFont(SKTypeface.FromFile("/home/fonts/SourceHanSansCN-Normal.ttf"),13);
+
+        canvas.DrawText("公众号：sangxiao99 ", 0, 13, font, paint);
+        font.Size = 30;
+        canvas.DrawText("桑榆肖物 ", 0, 50, font, paint);
         oled.Image(bitmap.Encode(SKEncodedImageFormat.Png, 100).ToArray());
     }
 
@@ -80,6 +81,52 @@ using (var oled = new SSD1306_128_64(1)) {
 }
 ```
 
+
+## Display Text
+
+```csharp
+using Sang.IoT.SSD1306;
+using SkiaSharp;
+
+using (var oled = new SSD1306_128_64(1)) {
+
+    oled.Begin();
+    oled.Clear();
+    oled.DrawText("大河向东流", 0, 16, "/home/fonts/SourceHanSansCN-Normal.ttf", 40);
+    oled.Display();
+}
+```
+
+## Partial refresh
+
+```csharp
+using Sang.IoT.SSD1306;
+using SkiaSharp;
+
+using (var oled = new SSD1306_128_64(1)) {
+
+    oled.Begin();
+    oled.Clear();
+    oled.DrawText("大河向东流", 0, 16, "/home/fonts/SourceHanSansCN-Normal.ttf", 40);
+    oled.Display();
+    
+    using (var bitmap = new SKBitmap(64, 54, true))
+    {
+        SKCanvas canvas = new SKCanvas(bitmap);
+        using var paint = new SKPaint
+        {
+            Color = new SKColor(255, 255, 255),
+            StrokeWidth = 1, //画笔宽度
+            Style = SKPaintStyle.Fill,
+        };
+        SKFont font = new SKFont(SKTypeface.FromFile("/home/fonts/SourceHanSansCN-Normal.ttf"), 30);
+        canvas.DrawText("桑榆肖物 ", 0, 40, font, paint);
+        oled.Image(bitmap.Encode(SKEncodedImageFormat.Png, 100).ToArray(), 0, 10, 64, 54);
+    }
+    
+    oled.Display();
+}
+```
 
 ## Clear
 
