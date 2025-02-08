@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sang.IoT.SSD1306", "Sang.IoT.SSD1306\Sang.IoT.SSD1306.csproj", "{0942368E-3487-489B-BECC-D85770372879}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sang.IoT.SSD1306.Test", "Sang.IoT.SSD1306.Test\Sang.IoT.SSD1306.Test.csproj", "{ADEC9635-C239-49E4-BAD6-145FA5C87F10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0942368E-3487-489B-BECC-D85770372879}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0942368E-3487-489B-BECC-D85770372879}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0942368E-3487-489B-BECC-D85770372879}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADEC9635-C239-49E4-BAD6-145FA5C87F10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADEC9635-C239-49E4-BAD6-145FA5C87F10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADEC9635-C239-49E4-BAD6-145FA5C87F10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADEC9635-C239-49E4-BAD6-145FA5C87F10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
