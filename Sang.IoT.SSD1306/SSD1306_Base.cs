@@ -145,7 +145,8 @@ namespace Sang.IoT.SSD1306
         /// <summary>
         /// 设置显示器buffer
         /// </summary>
-        public void SetBuffer(byte[] c) {
+        public void SetBuffer(byte[] c)
+        {
             if (c.Length != _buffer.Length) return;
             _buffer = c;
         }
@@ -153,10 +154,12 @@ namespace Sang.IoT.SSD1306
         /// <summary>
         /// 设置显示器buffer的特定区域
         /// </summary>
-        public void SetBuffer(byte[] c, int x, int y, int regionWidth, int regionHeight) {
+        public void SetBuffer(byte[] c, int x, int y, int regionWidth, int regionHeight)
+        {
             int pages = (regionHeight + 7) / 8;
             int bufferWidth = this.width;
-            for (int page = 0; page < pages; page++) {
+            for (int page = 0; page < pages; page++)
+            {
                 int bufferIndex = (y / 8 + page) * bufferWidth + x;
                 int sourceIndex = page * regionWidth;
                 Array.Copy(c, sourceIndex, _buffer, bufferIndex, regionWidth);
