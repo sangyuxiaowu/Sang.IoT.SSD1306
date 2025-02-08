@@ -1,6 +1,4 @@
-﻿using SkiaSharp;
-
-namespace Sang.IoT.SSD1306
+﻿namespace Sang.IoT.SSD1306
 {
     public class SSD1306_128_64 : SSD1306_Base
     {
@@ -49,53 +47,6 @@ namespace Sang.IoT.SSD1306
             Command(0x40);
             Command(SSD1306_DISPLAYALLON_RESUME);   // 0xA4
             Command(SSD1306_NORMALDISPLAY);         // 0xA6
-        }
-
-        /// <summary>
-        /// 设置图片数据 128*64
-        /// </summary>
-        /// <param name="filepath">图片路径</param>
-        public void Image(string filepath) {
-            Image(SKBitmap.Decode(filepath));
-        }
-
-        /// <summary>
-        /// 设置图片数据 128*64
-        /// </summary>
-        /// <param name="imageData">图片数据</param>
-        public void Image(byte[] imageData)
-        {
-            Image(SKBitmap.Decode(imageData));
-        }
-
-        private void Image(SKBitmap bitmap)
-        {
-            if (bitmap.Width != 128 || bitmap.Height != 64) return;
-
-            byte[] Data = new byte[this.width * this.pages];
-            int index = 0;
-            for (int page = 0; page < this.pages; page++)
-            {
-                for (int x = 0; x < this.width; x++)
-                {
-                    int bits = 0;
-                    for (int bit = 0; bit < 8; bit++)
-                    {
-                        bits = bits << 1;
-                        if (bitmap.GetPixel(x, page * 8 + 7 - bit).ToString() == "#ff000000")
-                        {
-                            bits = bits | 0;
-                        }
-                        else
-                        {
-                            bits = bits | 1;
-                        }
-                    }
-                    Data[index] = (byte)bits;
-                    index++;
-                }
-            }
-            this.SetBuffer(Data);
         }
     }
 }

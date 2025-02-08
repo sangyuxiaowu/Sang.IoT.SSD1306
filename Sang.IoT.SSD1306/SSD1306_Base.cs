@@ -2,7 +2,7 @@
 
 namespace Sang.IoT.SSD1306
 {
-    public class SSD1306_Base : IDisposable
+    public partial class SSD1306_Base : IDisposable
     {
         #region 常量
         public const byte SSD1306_I2C_ADDRESS = 0x3C;    // 011110+SA0+RW - 0x3C or 0x3D
@@ -151,6 +151,19 @@ namespace Sang.IoT.SSD1306
         }
 
         /// <summary>
+        /// 设置显示器buffer的特定区域
+        /// </summary>
+        public void SetBuffer(byte[] c, int x, int y, int regionWidth, int regionHeight) {
+            int pages = (regionHeight + 7) / 8;
+            int bufferWidth = this.width;
+            for (int page = 0; page < pages; page++) {
+                int bufferIndex = (y / 8 + page) * bufferWidth + x;
+                int sourceIndex = page * regionWidth;
+                Array.Copy(c, sourceIndex, _buffer, bufferIndex, regionWidth);
+            }
+        }
+
+        /// <summary>
         /// 将buffer数据写入到显示器
         /// </summary>
         public void Display()
@@ -173,6 +186,7 @@ namespace Sang.IoT.SSD1306
         public void Clear()
         {
             this._buffer = new byte[width * this.pages];
+            Display();
         }
 
 
