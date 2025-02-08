@@ -14,13 +14,14 @@ namespace Sang.IoT.SSD1306
         /// <param name="fontFile">字体文件</param>
         /// <param name="fontSize">字体大小，默认13</param>
         /// <param name="bgHeight">背景高度，默认字体大小+3</param>
-        /// <param name="bgWdith">背景宽度，默认剩余空间</param>
-        public void DrawText(string text, int x, int y, string fontFile, int fontSize = 13, int bgHeight = 0, int bgWdith = 0)
+        /// <param name="bgWidth">背景宽度，默认剩余空间</param>
+        /// <param name="drawOffset">绘制偏移量，默认0</param>
+        public void DrawText(string text, int x, int y, string fontFile, int fontSize = 13, int bgHeight = 0, int bgWidth = 0, int drawOffset = 0)
         {
-            bgWdith = bgWdith <= 0 ? this.width - x : bgWdith;
+            bgWidth = bgWidth <= 0 ? this.width - x : bgWidth;
             bgHeight = bgHeight <= 0 ? fontSize + 3 : bgHeight;
 
-            var regionWidth = Math.Min(bgWdith, this.width - x);
+            var regionWidth = Math.Min(bgWidth, this.width - x);
             var regionHeight = Math.Min(bgHeight, this.height - y);
 
             using (var bitmap = new SKBitmap(regionWidth, regionHeight, true))
@@ -33,7 +34,7 @@ namespace Sang.IoT.SSD1306
                     Style = SKPaintStyle.Fill,
                 };
                 SKFont font = new(SKTypeface.FromFile(fontFile), fontSize);
-                canvas.DrawText(text, 0, 0, font, paint);
+                canvas.DrawText(text, 0, fontSize + drawOffset, font, paint);
                 Image(bitmap.Encode(SKEncodedImageFormat.Png, 100).ToArray(), x, y, regionWidth, regionHeight);
             }
         }
